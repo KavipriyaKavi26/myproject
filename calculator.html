@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 400px;
+            margin: 50px auto;
+            gap: 10px;
+        }
+        .calculator button {
+            padding: 20px;
+            font-size: 18px;
+        }
+        .calculator #display {
+            grid-column: span 4;
+            padding: 20px;
+            background: #eee;
+            font-size: 24px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display">0</div>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="deleteLast()">←</button>
+        <button onclick="appendCharacter('/')">/</button>
+        <button onclick="appendCharacter('*')">*</button>
+        <button onclick="appendCharacter('7')">7</button>
+        <button onclick="appendCharacter('8')">8</button>
+        <button onclick="appendCharacter('9')">9</button>
+        <button onclick="appendCharacter('-')">-</button>
+        <button onclick="appendCharacter('4')">4</button>
+        <button onclick="appendCharacter('5')">5</button>
+        <button onclick="appendCharacter('6')">6</button>
+        <button onclick="appendCharacter('+')">+</button>
+        <button onclick="appendCharacter('1')">1</button>
+        <button onclick="appendCharacter('2')">2</button>
+        <button onclick="appendCharacter('3')">3</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendCharacter('0')" style="grid-column: span 2;">0</button>
+        <button onclick="appendCharacter('.')">.</button>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function clearDisplay() {
+            display.textContent = '0';
+        }
+
+        function deleteLast() {
+            display.textContent = display.textContent.slice(0, -1);
+            if (display.textContent === '') {
+                display.textContent = '0';
+            }
+        }
+
+        function appendCharacter(char) {
+            if (display.textContent === '0' && char !== '.') {
+                display.textContent = char;
+            } else {
+                display.textContent += char;
+            }
+        }
+
+        function calculate() {
+            try {
+                display.textContent = eval(display.textContent);
+            } catch (e) {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
